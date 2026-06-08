@@ -33,10 +33,8 @@ class Cart(models.Model):
     def __str__(self):
         return f"Корзина пользователя {self.user.username}"
     def total_price(self):
-        total = 0
-        for item in self.cartitem_set.all():
-            total += item.product.price * item.quantity
-        return total
+      return sum(item.product.price * item.quantity for item in self.elemcart_set.all())
+
 
 class ElemCart(models.Model):
     cart = models.ForeignKey(Cart, on_delete = models.CASCADE)
